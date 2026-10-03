@@ -24,3 +24,15 @@ if (orderDialog && orderButtons.length && closeDialogButton && selectedProductIn
 const orderForm = document.getElementById('order-form');
 const successMessage = document.getElementById('success-message');
 
+const chatToggle = document.getElementById('chat-toggle');
+const chatWindow = document.getElementById('chat-window');
+const chatClose = document.getElementById('chat-close');
+
+if (chatToggle && chatWindow && chatClose) {
+  chatToggle.addEventListener('click', () => {
+    chatWindow.hidden = !chatWindow.hidden;
+  });
+  chatClose.addEventListener('click', () => {
+    chatWindow.hidden = true;
+  });
+}
