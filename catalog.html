@@ -6,6 +6,7 @@
   <meta name="description" content="Каталог товаров учебного интернет-магазина.">
   <title>Каталог товаров — Учебный интернет-магазин</title>
   <link rel="stylesheet" href="css/style.css">
+  <script src="js/main.js" defer></script>
   <meta property="og:type" content="website">
   <meta property="og:title" content="Учебный интернет-магазин">
   <meta property="og:description" content="Учебный frontend-проект интернет-магазина.">
@@ -15,7 +16,7 @@
 
   <header class="site-header">
     <div class="site-header__inner">
-      <a class="site-header__logo" href="index.html">ShopProject</a>
+      <a class="site-header__logo" href="index.html">ForCats</a>
 
       <nav class="site-nav" aria-label="Основная навигация">
         <ul class="site-nav__list">
@@ -26,16 +27,13 @@
             <a class="site-nav__link site-nav__link--active" href="catalog.html">Каталог</a>
           </li>
           <li class="site-nav__item">
+            <a class="site-nav__link" href="product.html">Товар</a>
+          </li>
+          <li class="site-nav__item">
+            <a class="site-nav__link" href="about.html">О нас</a>
+          </li>
+          <li class="site-nav__item">
             <a class="site-nav__link" href="contacts.html">Контакты</a>
-          </li>
-          <li class="site-nav__item">
-            <a class="site-nav__link" href="index.html#advantages">Преимущества</a>
-          </li>
-          <li class="site-nav__item">
-            <a class="site-nav__link" href="index.html#popular">Популярные товары</a>
-          </li>
-          <li class="site-nav__item">
-            <a class="site-nav__link" href="index.html#contacts">Обратная связь</a>
           </li>
         </ul>
       </nav>
@@ -55,6 +53,13 @@
         В дальнейшем здесь будут добавлены фильтры, сортировка и более
         подробные карточки.
       </p>
+      <p>
+ С лицензиями на товар вы можете ознакомиться на странице
+  <a href="about.html"><strong>О нас</strong></a>.
+</p>
+      <p> По поводу оказания услуг кинологов позвоните по номеру, указанному на странице
+  <a href="contacts.html"><strong>Контакты</strong></a>.
+      </p>
     </section>
 
     <section class="catalog-layout">
@@ -64,17 +69,14 @@
         <form class="filters-form" action="#" method="get">
           <fieldset>
             <legend>Категория</legend>
-
             <label>
               <input type="checkbox" name="category" value="all">
               Все товары
             </label>
-
             <label>
               <input type="checkbox" name="category" value="popular">
               Популярные
             </label>
-
             <label>
               <input type="checkbox" name="category" value="new">
               Новинки
@@ -83,10 +85,8 @@
 
           <fieldset>
             <legend>Цена</legend>
-
             <label for="price-from">От</label>
             <input id="price-from" name="price-from" type="number" min="0" placeholder="0">
-
             <label for="price-to">До</label>
             <input id="price-to" name="price-to" type="number" min="0" placeholder="5000">
           </fieldset>
@@ -99,31 +99,48 @@
         <h2>Список товаров</h2>
 
         <div class="products-grid">
-          <article class="product-card">
-            <h3 class="product-card__title">Товар 1</h3>
+          <article class="product-card product-card--featured">
+            <span class="product-card__badge">Хит</span>
+            <img class="product-card__image" src="images/photo1.jpeg" alt="Корм для взрослых кошек" width="400" height="300">
+            <h3 class="product-card__title">Корм для взрослых кошек</h3>
             <p class="product-card__description">Краткое описание учебного товара.</p>
             <p class="product-card__price">Цена: 1000 руб.</p>
-            <a class="button button--primary product-card__button" href="index.html#popular">
-              Подробнее
-            </a>
+            <a class="button button--primary product-card__button" href="product.html?product=1">Заказать</a>
           </article>
 
           <article class="product-card">
-            <h3 class="product-card__title">Товар 2</h3>
+            <img class="product-card__image" src="images/photo2.jpeg" alt="Корм для котят" width="400" height="300">
+            <h3 class="product-card__title">Корм для котят</h3>
             <p class="product-card__description">Краткое описание учебного товара.</p>
             <p class="product-card__price">Цена: 1500 руб.</p>
-            <a class="button button--primary product-card__button" href="index.html#popular">
-              Подробнее
-            </a>
+            <a class="button button--primary product-card__button" href="product.html?product=2">Заказать</a>
+          </article>
+
+          <article class="product-card product-card--discount">
+            <span class="product-card__badge">Скидка</span>
+            <img class="product-card__image" src="images/photo3.jpeg" alt="Когтеточка" width="400" height="300">
+            <h3 class="product-card__title">Когтеточка</h3>
+            <p class="product-card__description">Краткое описание учебного товара.</p>
+            <p class="product-card__price">Цена: 2000 руб.</p>
+            <a class="button button--primary product-card__button" href="product.html?product=3">Заказать</a>
           </article>
 
           <article class="product-card">
-            <h3 class="product-card__title">Товар 3</h3>
+            <span class="product-card__badge product-card__badge--new">Новинка</span>
+            <img class="product-card__image" src="images/photo4.jpeg" alt="Лоток" width="400" height="300">
+            <h3 class="product-card__title">Лоток красивый</h3>
             <p class="product-card__description">Краткое описание учебного товара.</p>
-            <p class="product-card__price">Цена: 2000 руб.</p>
-            <a class="button button--primary product-card__button" href="index.html#popular">
-              Подробнее
-            </a>
+            <p class="product-card__price">Цена: 2500 руб.</p>
+            <a class="button button--primary product-card__button" href="product.html?product=4">Заказать</a>
+          </article>
+
+          <article class="product-card product-card--discount">
+            <span class="product-card__badge">Скидка</span>
+            <img class="product-card__image" src="images/photo5.jpeg" alt="Керамические мисочки" width="400" height="300">
+            <h3 class="product-card__title">Керамические мисочки</h3>
+            <p class="product-card__description">Краткое описание учебного товара.</p>
+            <p class="product-card__price">Цена: 3000 руб.</p>
+            <a class="button button--primary product-card__button" href="product.html?product=5">Заказать</a>
           </article>
         </div>
       </div>
@@ -134,6 +151,25 @@
     <p>&copy; 2026 Учебный проект. Все права защищены.</p>
     <p>Дисциплина: Фронтенд и бэкенд разработка</p>
   </footer>
+
+  <button class="chat-button" type="button" id="chat-toggle" aria-label="Открыть чат">
+    <img class="chat-button__icon" src="images/chat-icon.png" alt="Открыть чат" width="100" height="100">
+  </button>
+
+  <div class="chat-window" id="chat-window" hidden>
+    <div class="chat-window__header">
+      <span class="chat-window__title">Чат с магазином</span>
+      <button class="chat-window__close" type="button" id="chat-close" aria-label="Закрыть чат">✕</button>
+    </div>
+    <div class="chat-window__body">
+      <p class="chat-window__message chat-window__message--bot">Здравствуйте! Чем можем помочь?</p>
+      <p class="chat-window__message chat-window__message--user">Хочу узнать о доставке.</p>
+      <p class="chat-window__message chat-window__message--bot">Доставка по Москве — 1–2 дня, по России — 3–7 дней.</p>
+    </div>
+    <div class="chat-window__footer">
+      <p class="chat-window__note">Это учебный чат. Отправка сообщений не работает.</p>
+    </div>
+  </div>
 
 </body>
 </html>

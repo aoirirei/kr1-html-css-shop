@@ -3,8 +3,9 @@
    ============================================================ */
 :root {
   /* Цвета */
-  --color-primary: #0057b8;
-  --color-primary-dark: #003f86;
+  --color-header-bg: #ffe4ec;
+  --color-primary: #dc5ea6;
+  --color-primary-dark: #860081;
   --color-white: #ffffff;
   --color-text: #222222;
   --color-bg: #ffffff;
@@ -14,7 +15,8 @@
   --color-danger: #b00020;
   --color-success: #168a2f;
   --color-success-bg: #eefaf0;
-  --color-info-bg: #eef5ff;
+  --color-info-bg: #ffeef6;
+  --color-filters-bg: #ffeff6;
 
   /* Отступы */
   --space-xs: 4px;
@@ -124,19 +126,41 @@ button {
 
 /* ---------- 4.1. Шапка сайта ---------- */
 .site-header {
-  background-color: var(--color-surface);
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background-color: var(--color-header-bg);
 }
 
 .site-header__inner {
   max-width: var(--container-width);
   margin: 0 auto;
-  padding: var(--space-lg);
+  padding: var(--space-md) var(--space-lg);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-md);
 }
 
 .site-header__logo {
+  display: inline-block;
+  padding: 8px 20px;
+  font-family: 'Georgia', 'Times New Roman', serif;
+  font-size: 22px;
   font-weight: 700;
+  font-style: italic;
+  letter-spacing: 1px;
   color: var(--color-text);
+  background-color: var(--color-primary);
+  border-radius: 30px;
   text-decoration: none;
+  transition: transform 0.15s ease, background-color 0.15s ease;
+}
+
+.site-header__logo:hover {
+  background-color: var(--color-primary-dark);
+  color: var(--color-white);
+  transform: scale(1.03);
 }
 
 /* ---------- 4.2. Навигация ---------- */
@@ -190,6 +214,7 @@ button {
   color: var(--color-primary);
 }
 
+.breadcrumbs__link + .breadcrumbs__link::before,
 .breadcrumbs__current::before {
   content: " / ";
   color: var(--color-muted);
@@ -198,10 +223,11 @@ button {
 /* ---------- 4.4. Первый экран ---------- */
 .hero {
   max-width: var(--container-width);
-  margin: 0 auto var(--space-xl);
+  margin: var(--space-xl) auto;
   padding: var(--space-xl) var(--space-lg);
   background-color: var(--color-info-bg);
   border-radius: var(--radius-md);
+  text-align: center;
 }
 
 /* ---------- 4.5. Универсальный раздел ---------- */
@@ -227,11 +253,22 @@ button {
 .products-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: var(--space-lg);
+  gap: var(--space-md);
 }
 
 /* ---------- 4.8. Карточка товара ---------- */
+
+.product-card__image {
+  display: block;
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+  border-radius: var(--radius-sm);
+  background-color: var(--color-surface);
+}
+
 .product-card {
+  position: relative; /* ← контейнер для бейджа */
   display: flex;
   flex-direction: column;
   gap: var(--space-sm);
@@ -252,6 +289,24 @@ button {
 
 .product-card--discount {
   border-color: var(--color-danger);
+}
+
+/* Бейдж — position: absolute относительно карточки */
+.product-card__badge {
+  position: absolute;
+  top: var(--space-sm);
+  right: var(--space-sm);
+  padding: 4px 8px;
+  color: var(--color-white);
+  background-color: var(--color-danger);
+  border-radius: var(--radius-sm);
+  font-size: 12px;
+  font-weight: 700;
+  z-index: 1;
+}
+
+.product-card__badge--new {
+  background-color: var(--color-success);
 }
 
 .product-card__title {
@@ -278,14 +333,111 @@ button {
   align-self: flex-start;
 }
 
+/* ---------- 4.8.1. Страница товара ---------- */
+.product-page__layout {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-xl);
+  align-items: start;
+}
+
+.product-page__image {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: var(--radius-md);
+  background-color: var(--color-surface);
+}
+
+.product-page__title {
+  margin-top: 0;
+  margin-bottom: var(--space-md);
+}
+
+.product-page__description {
+  margin-bottom: var(--space-md);
+  color: var(--color-muted);
+}
+
+.product-page__price {
+  margin-bottom: var(--space-lg);
+  font-size: 24px;
+  font-weight: 700;
+}
+
+.product-page__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-md);
+}
+
+/* ---------- 4.8.2. Таблица характеристик ---------- */
+.product-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  background-color: var(--color-bg);
+}
+
+.product-table caption {
+  margin-bottom: var(--space-sm);
+  font-weight: 700;
+  text-align: left;
+}
+
+.product-table th,
+.product-table td {
+  padding: var(--space-sm) var(--space-md);
+  text-align: left;
+  border-bottom: 1px solid var(--color-border);
+  border-right: 1px solid var(--color-border);
+}
+
+.product-table th:last-child,
+.product-table td:last-child {
+  border-right: none;
+}
+
+.product-table th {
+  background-color: var(--color-header-bg);
+  font-weight: 700;
+}
+
+.product-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.product-table thead tr:first-child th:first-child {
+  border-top-left-radius: var(--radius-md);
+}
+
+.product-table thead tr:first-child th:last-child {
+  border-top-right-radius: var(--radius-md);
+}
+
+.product-table tbody tr:last-child td:first-child {
+  border-bottom-left-radius: var(--radius-md);
+}
+
+.product-table tbody tr:last-child td:last-child {
+  border-bottom-right-radius: var(--radius-md);
+}
+.product-table th:first-child,
+.product-table td:first-child {
+  width: 30%;  
+}
+
 /* ---------- 4.9. Каталог ---------- */
 .catalog-layout {
   max-width: var(--container-width);
   margin: 0 auto var(--space-xl);
   display: grid;
-  grid-template-columns: 260px 1fr;
+  grid-template-columns: 200px 1fr;
   grid-template-areas: "filters products";
-  gap: var(--space-lg);
+  gap: var(--space-md);
 }
 
 .catalog-filters {
@@ -293,7 +445,7 @@ button {
   padding: var(--space-md);
   border: 1px solid var(--color-border);
   border-radius: var(--radius-md);
-  background-color: var(--color-surface);
+  background-color: var(  --color-filters-bg);
 }
 
 .catalog-products {
@@ -400,6 +552,44 @@ button {
   margin-top: var(--space-lg);
 }
 
+/* ---------- 4.12.1. Форма на странице order.html ---------- */
+.order-page {
+  max-width: 720px;
+}
+
+.order-form--page {
+  padding: var(--space-lg);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  background-color: var(--color-bg);
+}
+
+.order-form__row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-md);
+}
+
+.order-form__required {
+  color: var(--color-danger);
+}
+
+.order-form__field--checkbox {
+  margin-bottom: var(--space-md);
+}
+
+.order-form__label--checkbox {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-sm);
+  cursor: pointer;
+}
+
+.order-form__input--checkbox {
+  width: auto;
+  margin-top: 4px;
+}
+
 /* ---------- 4.13. Сообщение об успехе ---------- */
 .success-message {
   max-width: var(--container-width);
@@ -413,4 +603,191 @@ button {
 .site-footer {
   padding: var(--space-lg);
   background-color: var(--color-surface);
+}
+
+/* ---------- 4.15. Блоки страницы «О нас» ---------- */
+.about-values {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-lg);
+}
+
+.about-card {
+  padding: var(--space-lg);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  background-color: var(--color-bg);
+}
+
+.about-card__title {
+  margin-top: 0;
+  margin-bottom: var(--space-sm);
+}
+
+.about-card__text {
+  margin: 0;
+  color: var(--color-muted);
+}
+
+.about-stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-lg);
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+
+.about-stats__item {
+  padding: var(--space-lg);
+  text-align: center;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  background-color: var(--color-surface);
+}
+
+.about-stats__value {
+  display: block;
+  font-size: 32px;
+  font-weight: 700;
+  color: var(--color-primary);
+}
+
+.about-stats__label {
+  display: block;
+  margin-top: var(--space-xs);
+  font-size: 14px;
+  color: var(--color-muted);
+}
+
+/* ---------- 4.16. Чат-виджет ---------- */
+.chat-button {
+  position: fixed;
+  right: var(--space-lg);
+  bottom: var(--space-lg);
+  z-index: 100;
+  width: 64px;
+  height: 64px;
+  padding: 0;
+  border: none;
+  border-radius: 50%;
+  background-color: var(--color-bg);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  cursor: pointer;
+  overflow: hidden;
+  transition: transform 0.15s ease;
+}
+
+.chat-button:hover {
+  transform: scale(1.05);
+}
+
+.chat-button:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 3px;
+}
+
+.chat-button__icon {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
+}
+
+.chat-window {
+  position: fixed;
+  right: var(--space-lg);
+  bottom: calc(var(--space-lg) + 80px);
+  z-index: 99;
+  width: 320px;
+  max-height: 420px;
+  display: flex;
+  flex-direction: column;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  background-color: var(--color-bg);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+  overflow: hidden;
+}
+
+.chat-window[hidden] {
+  display: none;
+}
+
+.chat-window__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--space-sm) var(--space-md);
+  color: var(--color-white);
+  background-color: var(--color-primary);
+}
+
+.chat-window__title {
+  font-weight: 700;
+}
+
+.chat-window__close {
+  padding: 0 6px;
+  border: none;
+  background: transparent;
+  color: var(--color-white);
+  font-size: 18px;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.chat-window__body {
+  flex: 1;
+  padding: var(--space-md);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+  overflow-y: auto;
+}
+
+.chat-window__message {
+  max-width: 85%;
+  margin: 0;
+  padding: var(--space-sm) var(--space-md);
+  border-radius: var(--radius-sm);
+  font-size: 14px;
+}
+
+.chat-window__message--bot {
+  align-self: flex-start;
+  background-color: var(--color-surface);
+  color: var(--color-text);
+}
+
+.chat-window__message--user {
+  align-self: flex-end;
+  color: var(--color-white);
+  background-color: var(--color-primary);
+}
+
+.chat-window__footer {
+  padding: var(--space-sm) var(--space-md);
+  border-top: 1px solid var(--color-border);
+  background-color: var(--color-surface);
+}
+
+.chat-window__note {
+  margin: 0;
+  font-size: 12px;
+  color: var(--color-muted);
+}
+
+/* Кнопка на главной — во всю ширину карточки */
+#popular .product-card__button {
+  align-self: stretch;
+  width: 100%;
+  text-align: center;
+}
+.catalog-products .product-card__button {
+  align-self: stretch;
+  width: 100%;
+  text-align: center;
+  display: block;
 }
