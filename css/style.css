@@ -222,14 +222,32 @@ button {
 
 /* ---------- 4.4. Первый экран ---------- */
 .hero {
+  position: relative;
   max-width: var(--container-width);
   margin: var(--space-xl) auto;
   padding: var(--space-xl) var(--space-lg);
-  background-color: var(--color-info-bg);
   border-radius: var(--radius-md);
   text-align: center;
+  overflow: hidden;
+
+  background-image: url('../images/hero-cat.jpeg');
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;  
+  background-color: var(--color-info-bg);
+}
+.hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-color: rgba(255, 228, 240, 0.6);
+  z-index: 0;
 }
 
+.hero > * {
+  position: relative;
+  z-index: 1;
+}
 /* ---------- 4.5. Универсальный раздел ---------- */
 .section {
   max-width: var(--container-width);
